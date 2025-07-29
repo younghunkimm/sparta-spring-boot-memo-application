@@ -31,7 +31,7 @@ public class MemoController {
     }
 
     @GetMapping
-    public List<MemoResponseDto> findAllMemos() {
+    public ResponseEntity<List<MemoResponseDto>> findAllMemos() {
 
         // init list
         List<MemoResponseDto> responseList = new ArrayList<>();
@@ -45,7 +45,7 @@ public class MemoController {
         // Map To List (use Stream)
 //        List<MemoResponseDto> responseList = memoList.values().stream().map(MemoResponseDto::new).toList();
 
-        return responseList;
+        return new ResponseEntity<>(responseList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
