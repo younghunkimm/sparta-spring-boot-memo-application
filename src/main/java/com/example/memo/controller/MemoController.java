@@ -7,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/memos")
@@ -31,6 +29,23 @@ public class MemoController {
 
         return new ResponseEntity<>(new MemoResponseDto(memo), HttpStatus.CREATED);
     }
+
+    @GetMapping
+    public List<MemoResponseDto> findAllMemos() {
+
+        // init list
+        List<MemoResponseDto> responseList = new ArrayList<>();
+
+        // HashMap<Memo> -> List<MemoResponseDtd>
+        for (Memo memo : memoList.values()) {
+            MemoResponseDto responseDto = new MemoResponseDto(memo);
+            responseList.add(responseDto);
+        }
+
+        // Map To List (use Stream)
+//        List<MemoResponseDto> responseList = memoList.values().stream().map(MemoResponseDto::new).toList();
+
+        return responseList;
     }
 
     @GetMapping("/{id}")
